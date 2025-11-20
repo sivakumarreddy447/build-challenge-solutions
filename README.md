@@ -3,7 +3,7 @@
 [![Java](https://img.shields.io/badge/Java-11%2B%20%7C%2017%2B-orange.svg)](https://www.oracle.com/java/)
 [![Maven](https://img.shields.io/badge/Maven-3.6+-blue.svg)](https://maven.apache.org/)
 [![Tests](https://img.shields.io/badge/Tests-99%20Passing-brightgreen.svg)](#testing-summary)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 
 A comprehensive collection of Java programming assignments demonstrating **functional programming**, **concurrent programming**, **data analysis**, and **software engineering best practices**.
 
@@ -687,3 +687,4 @@ cd ../Assignment-2
 mvn clean compile
 mvn exec:java
 ```
+
