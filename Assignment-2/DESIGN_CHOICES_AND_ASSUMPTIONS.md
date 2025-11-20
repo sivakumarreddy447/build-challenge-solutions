@@ -5,8 +5,7 @@
 This document outlines the technical decisions, architectural choices, and assumptions made during the development of the Sales Data Analytics application. It serves as a comprehensive reference for understanding the rationale behind the implementation approach.
 
 **Assignment:** Assignment 2 - Data Analysis using Streams API on CSV data  
-**Date:** November 2024  
-**Language:** Java 17+  
+ 
 
 ---
 
@@ -20,13 +19,6 @@ This document outlines the technical decisions, architectural choices, and assum
 - **Enterprise Readiness**: Java is widely used in enterprise environments where sales analytics are deployed
 - **Rich Ecosystem**: Excellent libraries for CSV processing (Apache Commons CSV), testing (JUnit 5), and build automation (Maven)
 - **Performance**: JVM optimization provides excellent performance for data-intensive operations
-
-**Alternative Considered:** Python
-- While Python offers pandas and simpler syntax, Java was chosen for:
-  - Better demonstration of functional programming concepts (explicit lambdas, method references)
-  - Type safety benefits
-  - Compilation guarantees before runtime
-  - More verbose but self-documenting code
 
 ---
 
@@ -544,111 +536,6 @@ throw new IllegalArgumentException(
 
 ---
 
-## 14. Code Quality Standards
-
-### 14.1 Naming Conventions
-
-**Classes:**
-- Nouns (SalesRecord, AnalyticsService)
-- Clear, descriptive names
-
-**Methods:**
-- Verbs or verb phrases (calculateRevenue, formatCurrency)
-- Stream methods: descriptive (totalRevenue vs getTotalRevenue - verb is implicit)
-
-**Variables:**
-- Descriptive, avoid abbreviations
-- `streamSupplier` not `ss`
-
-### 14.2 Documentation Standards
-
-**Javadoc:**
-- All public classes and methods
-- Focus on "what" and "why", not "how"
-- Examples for complex methods
-
-**Inline Comments:**
-- Explain non-obvious decisions
-- Describe complex algorithms
-- Justify performance trade-offs
-
-### 14.3 Functional Programming Standards
-
-**Pure Functions:**
-- No side effects
-- Same input → same output
-- Thread-safe by design
-
-**Immutability:**
-- Records are immutable
-- Methods return new objects, never modify inputs
-- Stream operations don't modify source
-
-**Declarative Style:**
-- Express "what" not "how"
-- Chain operations fluently
-- Use standard library functions (sum, average) over manual reduction
-
----
-
-## 15. Assumptions Summary
-
-### Data Assumptions
-1. CSV file uses standard format with header row
-2. Dates are in one of three supported formats
-3. Currency values are in same currency (no conversion needed)
-4. Order numbers may repeat (multi-line orders)
-5. Missing optional fields are acceptable
-
-### Business Assumptions
-1. Revenue can be calculated from sales OR quantity×price
-2. "High value" orders are those >$500 (configurable)
-3. Top 10 is default for ranking operations (configurable)
-4. Territory/region is most important geographic dimension
-5. Year and month are most important temporal dimensions
-
-### Technical Assumptions
-1. Java 17+ is available on target systems
-2. Dataset fits comfortably in memory
-3. Console is primary output method (no GUI needed)
-4. No database required (file-based is sufficient)
-5. Single-threaded execution is adequate for performance
-
-### Future Enhancements (Not Implemented)
-1. **Parallel Streams**: For very large datasets
-2. **Database Support**: For datasets >1GB
-3. **Web Dashboard**: Interactive visualizations
-4. **Export Options**: PDF, Excel, JSON output
-5. **Incremental Processing**: Handle streaming data sources
-6. **Anomaly Detection**: Statistical outlier identification
-7. **Predictive Analytics**: Time series forecasting
-
----
-
-## 16. Lessons Learned & Reflections
-
-### What Worked Well
-1. **Functional Approach**: Streams made code concise and expressive
-2. **Layered Architecture**: Easy to test and maintain
-3. **Comprehensive Testing**: Caught many edge cases early
-4. **Records**: Perfect fit for immutable data model
-5. **Apache Commons CSV**: Robust, handled all edge cases
-
-### What Could Be Improved
-1. **Configuration**: Hard-coded paths and thresholds could be externalized
-2. **Logging**: Using System.out instead of proper logging framework
-3. **Internationalization**: Currency and date formats assume US locale
-4. **Performance**: Could optimize with caching for repeated analyses
-5. **Visualization**: Console output could be enhanced with charts
-
-### Key Takeaways
-1. **Functional programming reduces bugs**: Immutability and pure functions prevent many common errors
-2. **Type safety matters**: Caught numerous bugs at compile time
-3. **Testing pays off**: Comprehensive tests gave confidence in refactoring
-4. **Standard libraries are powerful**: Streams and Collectors handle most use cases elegantly
-5. **Clean architecture scales**: Easy to add new analytics without modifying existing code
-
----
 
 ## Conclusion
 
@@ -671,7 +558,5 @@ All choices were made with the assignment objectives in mind:
 
 ---
 
-**Document Version:** 1.0  
-**Last Updated:** November 20, 2024  
-**Author:** Sales Analytics Team  
+
 
