@@ -463,20 +463,7 @@ mvn clean test jacoco:report
 
 ### <a name="a2-documentation"></a>📚 Documentation
 
-**Comprehensive documentation available:**
 
-1. **[Assignment-2/README.md](Assignment-2/README.md)** - Detailed setup, usage, and API reference
-2. **[Assignment-2/DESIGN_CHOICES_AND_ASSUMPTIONS.md](Assignment-2/DESIGN_CHOICES_AND_ASSUMPTIONS.md)** - Technical decisions and rationale:
-   - Language selection (Java vs Python)
-   - Architectural decisions (layered architecture, dependency injection)
-   - Data model design (Java records, immutability)
-   - Functional programming approach
-   - Technology stack rationale
-   - CSV format assumptions
-   - Analytics operations design
-   - Error handling strategy
-   - Testing strategy
-   - Performance considerations
 
 ### 📁 Assignment 2 Structure
 
@@ -612,15 +599,6 @@ java -cp target/classes:target/test-classes com.assignment.producerconsumer.Simp
 
 ---
 
-## 📚 Documentation
-
-### Assignment 1: Producer-Consumer Pattern
-- **[Assignment-1/README.md](Assignment-1/README.md)** - Complete setup, usage, and implementation details
-
-### Assignment 2: Sales Data Analytics
-- **[Assignment-2/README.md](Assignment-2/README.md)** - Complete setup, usage, and API documentation
-- **[Assignment-2/DESIGN_CHOICES_AND_ASSUMPTIONS.md](Assignment-2/DESIGN_CHOICES_AND_ASSUMPTIONS.md)** - Technical decisions (16 comprehensive sections)
-- **[ASSIGNMENT_DELIVERABLES.md](ASSIGNMENT_DELIVERABLES.md)** - Deliverables checklist and overview
 
 ### Key Documentation Sections
 
@@ -689,31 +667,6 @@ java -cp target/classes:target/test-classes com.assignment.producerconsumer.Simp
 
 ---
 
-## 🏆 Highlights & Best Practices
-
-### Code Quality
-- ✅ **Clean Architecture**: Separation of concerns across multiple layers
-- ✅ **Type Safety**: Strong typing prevents runtime errors
-- ✅ **Immutability**: Java records ensure data integrity
-- ✅ **Resource Management**: Try-with-resources and proper cleanup
-- ✅ **Error Handling**: Fail-fast with clear error messages
-- ✅ **Comprehensive Testing**: 99 tests with 100% pass rate
-- ✅ **Documentation**: Extensive inline comments and external docs
-
-### Software Engineering
-- ✅ **Maven Build System**: Reproducible builds with dependency management
-- ✅ **Executable JARs**: Single-command deployment
-- ✅ **Version Control**: Git with proper .gitignore
-- ✅ **Code Organization**: Logical package structure
-- ✅ **Naming Conventions**: Clear, descriptive names throughout
-
-### Advanced Techniques
-- ✅ **Functional Programming**: Pure functions, higher-order functions
-- ✅ **Concurrent Programming**: Safe multi-threading patterns
-- ✅ **Stream Processing**: Lazy evaluation and pipeline optimization
-- ✅ **Design Patterns**: Supplier, Producer-Consumer, Dependency Injection
-
----
 
 ## 🚀 Getting Started
 
@@ -734,130 +687,3 @@ cd ../Assignment-2
 mvn clean compile
 mvn exec:java
 ```
-
-### Quick Test
-
-```bash
-# Test Assignment 1
-cd Assignment-1
-mvn test
-# Expected: Tests run: 81, Failures: 0, Errors: 0
-
-# Test Assignment 2
-cd ../Assignment-2
-mvn exec:java
-# Expected: Total Tests: 18, Passed: 18, Failed: 0
-```
-
----
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-**Java Version Mismatch:**
-```bash
-# Check version
-java -version
-
-# Assignment 1 requires Java 11+
-# Assignment 2 requires Java 17+
-
-# Set JAVA_HOME if needed
-export JAVA_HOME=/path/to/jdk-17
-```
-
-**Maven Not Found:**
-```bash
-# Install Maven
-# macOS: brew install maven
-# Ubuntu: apt-get install maven
-# Windows: Download from maven.apache.org
-
-# Verify
-mvn -version
-```
-
-**Build Failures:**
-```bash
-# Clean and rebuild
-mvn clean compile
-
-# Skip tests if needed (not recommended)
-mvn clean package -DskipTests
-```
-
-**Tests Running Slowly (Assignment 1):**
-- Normal behavior for stress tests (500 items)
-- Ensure sufficient system resources
-- Tests may take 3-5 minutes total
-
----
-
-## 📈 Performance Metrics
-
-### Assignment 1: Producer-Consumer Pattern
-- **Basic Tests (1-15)**: 2-4 minutes
-- **Advanced Multi-threading Tests (16-18)**: 30-60 seconds
-- **Total Test Suite**: 3-5 minutes
-- **Demo Mode**: ~1 second (10 items)
-- **Stress Test**: ~30 seconds (500 items)
-
-### Assignment 2: Sales Data Analytics
-- **Dataset Size**: 2,823 records (~2MB)
-- **Parse Time**: 50-100ms
-- **Total Revenue Calculation**: <1ms
-- **Complex Grouping Operations**: <5ms
-- **All 13 Analytics Operations**: <50ms total
-- **Test Suite Execution**: ~1.4 seconds
-
----
-
-## 📝 License
-
-This project is created for educational purposes as part of a coding challenge.
-
----
-
-## 👥 Authors
-
-**Sales Analytics & Concurrent Programming Team**
-
----
-
-## 🙏 Acknowledgments
-
-- Built as part of coding challenges to demonstrate Java proficiency
-- Sample datasets provided for educational purposes
-- Inspired by real-world analytics and concurrent programming requirements
-
----
-
-## 📞 Support
-
-For questions or issues:
-- Open an issue on GitHub
-- Review the comprehensive documentation in each assignment folder
-- Check individual README files for detailed information
-
----
-
-## 🔗 Quick Links
-
-### Documentation
-- [Assignment 1 README](Assignment-1/README.md)
-- [Assignment 2 README](Assignment-2/README.md)
-- [Assignment 2 Design Choices](Assignment-2/DESIGN_CHOICES_AND_ASSUMPTIONS.md)
-- [Deliverables Overview](ASSIGNMENT_DELIVERABLES.md)
-
-### Source Code
-- [Assignment 1 Producer](Assignment-1/src/main/java/com/assignment/producerconsumer/Producer.java)
-- [Assignment 1 Consumer](Assignment-1/src/main/java/com/assignment/producerconsumer/Consumer.java)
-- [Assignment 2 Analytics Service](Assignment-2/src/main/java/com/example/sales/service/AnalyticsService.java)
-- [Assignment 2 Main App](Assignment-2/src/main/java/com/example/sales/App.java)
-
----
-
-**Made with ❤️ using Java, Streams API, Functional Programming, and Concurrent Programming**
-
-*Last Updated: November 20, 2024*
