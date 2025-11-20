@@ -164,6 +164,16 @@ mvn test -Dtest=AnalyticsServiceTest
 
 Running the application with the provided sample data (2,823 sales records) produces:
 
+### Console Output Screenshots
+
+![Sample Output - Part 1](docs/images/output-part1.png)
+*Complete analytics output showing financial metrics, regional analysis, and top performers*
+
+![Sample Output - Part 2](docs/images/output-part2.png)
+*Monthly revenue trends and data quality checks*
+
+### Detailed Output
+
 ```
 === Total Revenue ===
   $10,032,628.85
