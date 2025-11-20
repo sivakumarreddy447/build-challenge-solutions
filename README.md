@@ -108,7 +108,6 @@ java -cp target/classes:target/test-classes com.assignment.producerconsumer.Simp
 
 ### <a name="a1-sample-output"></a>📈 Sample Output
 ![Output](Output/Assignment-1-Image-1.png)
-![Output](Output/Assignment-1-Image-1.png)
 #### Demo Mode
 ```
 ============================================================
@@ -342,6 +341,7 @@ mvn test
 ```
 
 ### <a name="a2-sample-output"></a>📈 Sample Output
+![Output](Output/Assignment-2-Image-1.png)
 
 Running the application with the provided sample data (2,823 sales records) produces:
 
@@ -688,4 +688,5 @@ cd ../Assignment-2
 mvn clean compile
 mvn exec:java
 ```
+
 
