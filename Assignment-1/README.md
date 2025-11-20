@@ -196,31 +196,7 @@ All 18 tests verify:
 - ✅ Threads terminate cleanly
 - ✅ Queue empty after completion
 
-## 🐛 Troubleshooting
 
-**Tests timeout or run slowly:**
-- Normal behavior for stress tests (500 items)
-- Ensure sufficient system resources
-- Check Java heap size if needed
-
-**ClassNotFoundException:**
-```bash
-mvn clean compile
-```
-
-**Build fails:**
-```bash
-# Verify Java version
-java -version  # Should be 11+
-
-# Clean and rebuild
-mvn clean compile
-```
-
-## 📝 License
-
-Educational implementation for assignment submission.
-
-## 👤 Author
 
 Assignment 1 - Producer-Consumer Pattern Implementation
+
