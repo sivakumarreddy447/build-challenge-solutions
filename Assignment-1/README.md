@@ -1,517 +1,226 @@
-# Sales Data Analytics - Java Streams & Functional Programming
+# Producer-Consumer Pattern
 
-[![Java](https://img.shields.io/badge/Java-17+-orange.svg)](https://www.oracle.com/java/)
-[![Maven](https://img.shields.io/badge/Maven-3.6+-blue.svg)](https://maven.apache.org/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Tests](https://img.shields.io/badge/Tests-81%20Passing-brightgreen.svg)](#testing)
+A Java implementation of the classic Producer-Consumer pattern demonstrating thread synchronization, concurrent programming, blocking queues, and wait/notify mechanisms.
 
-A comprehensive sales data analytics application demonstrating modern Java programming with functional programming paradigms, Java Streams API, and best practices in software development.
+## 📋 Assignment Overview
 
-## 📋 Table of Contents
+This project implements a concurrent data transfer system where:
+- **Producer thread** reads items from a source container and places them into a shared queue
+- **Consumer thread** reads items from the shared queue and stores them in a destination container
+- Both threads synchronize using locks, blocking queues, and wait/notify mechanisms
 
-- [Overview](#overview)
-- [Features](#features)
-- [Technology Stack](#technology-stack)
-- [Project Structure](#project-structure)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Sample Output](#sample-output)
-- [Analytics Operations](#analytics-operations)
-- [Testing](#testing)
-- [Functional Programming Concepts](#functional-programming-concepts)
-- [CSV Format](#csv-format)
-- [Design Choices and Assumptions](#design-choices-and-assumptions)
-- [Contributing](#contributing)
+## 🎯 Key Concepts Demonstrated
 
-## 🎯 Overview
+- ✅ **Thread Synchronization**: `synchronized` blocks and proper locking
+- ✅ **Concurrent Programming**: Multiple threads running in parallel
+- ✅ **Blocking Queues**: Thread-safe queue operations with capacity management
+- ✅ **Wait/Notify Mechanism**: Efficient inter-thread communication
+- ✅ **Multiple Producers/Consumers**: Advanced multi-threading scenarios
 
-This project analyzes sales data from CSV files using Java 17+ features and demonstrates proficiency with:
+## 🚀 Quick Start
 
-- **Functional Programming**: Lambda expressions, method references, pure functions
-- **Java Streams API**: map, filter, reduce, sorted, limit, collect operations
-- **Data Aggregation**: groupingBy, partitioningBy, summingDouble, counting collectors
-- **Modern Java**: Records, try-with-resources, Optional handling
-- **Clean Architecture**: Separation of concerns with layered design
-- **Comprehensive Testing**: 81 unit tests with 100% pass rate
+### Prerequisites
+- Java 11 or higher
+- Maven 3.6+ (optional)
 
-## ✨ Features
+### Build & Run
 
-### Core Analytics
-- 📊 **Financial Metrics**: Total revenue, average order value, quantity analysis
-- 📅 **Temporal Analysis**: Revenue trends by year and month
-- 🌎 **Geographic Insights**: Revenue breakdown by territory (NA, EMEA, APAC, Japan)
-- 🏆 **Top Performers**: Best selling products and highest revenue customers
-- 📦 **Operational Metrics**: Order status tracking and deal size distribution
-- 🎯 **Advanced Analytics**: High-value order partitioning
-- ✅ **Data Quality**: Automated checks for missing values and duplicates
+**Using Maven (Recommended):**
+```bash
+# Compile
+mvn clean compile
 
-### Technical Highlights
-- ✅ Functional programming with lambda expressions and method references
-- ✅ Stream operations for declarative data processing
-- ✅ Supplier pattern for reusable data streams
-- ✅ Immutable data structures using Java records
-- ✅ Robust CSV parsing with Apache Commons CSV
-- ✅ Comprehensive error handling
-- ✅ Resource management with try-with-resources
-- ✅ 81 unit tests ensuring code quality
+# Run all 18 tests
+mvn exec:java
 
-## 🛠 Technology Stack
+# Run demo mode
+mvn exec:java -Dexec.args="demo"
 
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| **Java** | 17+ | Core programming language |
-| **Maven** | 3.6+ | Build and dependency management |
-| **Apache Commons CSV** | 1.10.0 | CSV parsing and processing |
-| **JUnit Jupiter** | 5.10.0 | Unit testing framework |
-| **Maven Shade Plugin** | 3.5.0 | Creating executable JAR |
+# Create JAR
+mvn package
+java -jar target/producer-consumer-1.0.0-jar-with-dependencies.jar
+```
+
+**Using Direct Java Compilation:**
+```bash
+# Compile
+javac -d target/classes src/main/java/com/assignment/producerconsumer/*.java
+javac -cp target/classes -d target/test-classes src/test/java/com/assignment/producerconsumer/*.java
+
+# Run tests
+java -cp target/classes:target/test-classes com.assignment.producerconsumer.SimpleTestRunner
+
+# Run demo
+java -cp target/classes:target/test-classes com.assignment.producerconsumer.SimpleTestRunner demo
+```
 
 ## 📁 Project Structure
 
 ```
-buildChallenge/
-├── data/
-│   └── sales_data_sample.csv        # Sample sales data (2823 records)
+producer-consumer/
+├── pom.xml                                  # Maven configuration
+├── README.md                                # This file
 ├── src/
-│   ├── main/
-│   │   └── java/com/example/sales/
-│   │       ├── App.java              # Main application entry point
-│   │       ├── model/
-│   │       │   └── SalesRecord.java  # Immutable record for sales data
-│   │       ├── reader/
-│   │       │   └── CsvSalesReader.java  # CSV parsing with Supplier pattern
-│   │       ├── service/
-│   │       │   └── AnalyticsService.java  # Core analytics with Streams
-│   │       ├── output/
-│   │       │   └── ConsoleReporter.java  # Console output formatter
-│   │       └── util/
-│   │           └── DateUtils.java    # Date parsing utilities
-│   └── test/
-│       ├── java/                     # 81 comprehensive unit tests
-│       └── resources/                # Test data files
-├── docs/
-│   └── images/                       # Screenshots and diagrams
-├── pom.xml                           # Maven configuration
-├── README.md                         # This file
-├── DESIGN_CHOICES_AND_ASSUMPTIONS.md # Technical decisions & assumptions
-└── .gitignore                        # Git ignore rules
+│   ├── main/java/com/assignment/producerconsumer/
+│   │   ├── Producer.java                   # Producer thread implementation
+│   │   └── Consumer.java                   # Consumer thread implementation
+│   └── test/java/com/assignment/producerconsumer/
+│       └── SimpleTestRunner.java           # 18 comprehensive tests
+└── target/                                  # Build output (auto-generated)
 ```
 
-## 📋 Prerequisites
+## 🧪 Test Coverage (18 Tests)
 
-Before running this application, ensure you have:
+### Basic Tests (1-15)
+| Test | Description |
+|------|-------------|
+| 1 | Basic producer-consumer functionality |
+| 2 | Thread synchronization - no race conditions |
+| 3 | Small queue capacity (1) - blocking behavior |
+| 4 | Large queue capacity (100) - minimal blocking |
+| 5 | Edge case - empty source |
+| 6 | Edge case - single item |
+| 7 | Concurrent execution performance |
+| 8 | Producer wait mechanism |
+| 9 | Consumer wait mechanism |
+| 10 | Multiple consecutive runs |
+| 11 | Stress test with 500 items |
+| 12 | Graceful shutdown - no hanging threads |
+| 13 | Data integrity with special characters |
+| 14 | Final queue state verification |
+| 15 | Performance comparison across queue sizes |
 
-- **Java Development Kit (JDK)** 17 or higher
-  - Check version: `java -version`
-  - Download: [Oracle JDK](https://www.oracle.com/java/technologies/downloads/) or [OpenJDK](https://openjdk.org/)
-
-- **Apache Maven** 3.6 or higher
-  - Check version: `mvn -version`
-  - Download: [Maven](https://maven.apache.org/download.cgi)
-
-## 🚀 Installation
-
-### Step 1: Clone the Repository
-
-```bash
-git clone https://github.com/yourusername/buildChallenge.git
-cd buildChallenge
-```
-
-### Step 2: Build the Project
-
-```bash
-mvn clean package
-```
-
-This command will:
-- Download all dependencies
-- Compile the source code
-- Run all 81 unit tests
-- Create an executable JAR file in `target/` directory
-
-Expected output:
-```
-[INFO] BUILD SUCCESS
-[INFO] Tests run: 81, Failures: 0, Errors: 0, Skipped: 0
-```
-
-## 💻 Usage
-
-### Run with Default Data
-
-```bash
-java -jar target/buildChallenge-1.0-SNAPSHOT.jar
-```
-
-This uses the sample data file: `data/sales_data_sample.csv`
-
-### Run with Custom CSV File
-
-```bash
-java -jar target/buildChallenge-1.0-SNAPSHOT.jar path/to/your/data.csv
-```
-
-### Run Tests Only
-
-```bash
-mvn test
-```
-
-### Run Tests with Details
-
-```bash
-mvn test -Dtest=AnalyticsServiceTest
-```
+### Advanced Tests (16-18)
+| Test | Description |
+|------|-------------|
+| 16 | **Multiple Producers (3) → Single Consumer** |
+| 17 | **Single Producer → Multiple Consumers (3)** |
+| 18 | **Multiple Producers (2) → Multiple Consumers (2)** |
 
 ## 📊 Sample Output
 
-Running the application with the provided sample data (2,823 sales records) produces:
-
-### Console Output Screenshots
-
-![Sample Output - Part 1](docs/images/output-part1.png)
-*Complete analytics output showing financial metrics, regional analysis, and top performers*
-
-![Sample Output - Part 2](docs/images/output-part2.png)
-*Monthly revenue trends and data quality checks*
-
-### Detailed Output
-
+### Demo Mode
 ```
-=== Total Revenue ===
-  $10,032,628.85
-
-=== Total Orders ===
-  2823
-
-=== Total Quantity ===
-  99067
-
-=== Average Order Value ===
-  $3,553.89
-
-=== Revenue by Year ===
-  2003 : 3516979.54
-  2004 : 4724162.6
-  2005 : 1791486.71
-
-=== Revenue by Region ===
-  NA : 3852061.39
-  EMEA : 4979272.41
-  Japan : 455173.22
-  APAC : 746121.83
-
-=== Top 10 Products by Revenue ===
-  Classic Cars : 3919615.66
-  Vintage Cars : 1903150.84
-  Motorcycles : 1166388.34
-  Trucks and Buses : 1127789.84
-  Planes : 975003.57
-  Ships : 714437.13
-  Trains : 226243.47
-
-=== Top 10 Customers by Revenue ===
-  Euro Shopping Channel : 912294.11
-  Mini Gifts Distributors Ltd. : 654858.06
-  Australian Collectors, Co. : 200995.41
-  Muscle Machine Inc : 197736.94
-  La Rochelle Gifts : 180124.9
-  Dragon Souveniers, Ltd. : 172989.68
-  Land of Toys Inc. : 164069.44
-  The Sharp Gifts Warehouse : 160010.27
-  AV Stores, Co. : 157807.81
-  Anna's Decorations, Ltd : 153996.13
-
-=== Orders by Status ===
-  In Process : 41
-  On Hold : 44
-  Resolved : 47
-  Shipped : 2617
-  Cancelled : 60
-  Disputed : 14
-
-=== Orders by DealSize ===
-  Small : 1282
-  Medium : 1384
-  Large : 157
-
-=== Partition High Value Orders (> 500.0) ===
-  false : 1
-  true : 2822
-
-=== Monthly Revenue (YYYY-MM) ===
-  2003-01 : 129753.6
-  2003-02 : 140836.19
-  2003-03 : 174504.9
-  2003-04 : 201609.55
-  2003-05 : 192673.11
-  2003-06 : 168082.56
-  2003-07 : 187731.88
-  2003-08 : 197809.3
-  2003-09 : 263973.36
-  2003-10 : 568290.97
-  2003-11 : 1029837.66
-  2003-12 : 261876.46
-  2004-01 : 316577.42
-  2004-02 : 311419.53
-  2004-03 : 205733.73
-  2004-04 : 206148.12
-  2004-05 : 273438.39
-  2004-06 : 286674.22
-  2004-07 : 327144.09
-  2004-08 : 461501.27
-  2004-09 : 320750.91
-  2004-10 : 552924.25
-  2004-11 : 1089048.01
-  2004-12 : 372802.66
-  2005-01 : 339543.42
-  2005-02 : 358186.18
-  2005-03 : 374262.76
-  2005-04 : 261633.29
-  2005-05 : 457861.06
-
-=== Data Quality Checks ===
-  rows : 2823
-  missingOrderDate : 0
-  missingSalesValue : 0
-  duplicateOrderNumbers : 2516
+============================================================
+PRODUCER-CONSUMER PATTERN DEMONSTRATION
+============================================================
+Source container: [Item-1, Item-2, ..., Item-10]
+Queue capacity: 3
+============================================================
+[PRODUCER] Starting producer thread...
+[CONSUMER] Starting consumer thread...
+[PRODUCER] Producing item: Item-1
+[PRODUCER] Added 'Item-1' to queue. Queue size: 1
+[CONSUMER] Consuming item: Item-1
+...
+============================================================
+FINAL RESULTS
+============================================================
+Items transferred: 10/10
+[SUCCESS] All items transferred correctly!
 ```
 
-## 🔬 Analytics Operations
-
-### 1. Basic Financial Metrics
-
-| Operation | Method | Description |
-|-----------|--------|-------------|
-| **Total Revenue** | `totalRevenue()` | Sum of all sales amounts |
-| **Total Orders** | `totalOrders()` | Count of all orders |
-| **Total Quantity** | `totalQuantity()` | Sum of quantities ordered |
-| **Average Order Value** | `averageOrderValue()` | Mean revenue per order |
-
-### 2. Grouping & Aggregation
-
-| Operation | Method | Collector Used |
-|-----------|--------|----------------|
-| **Revenue by Year** | `revenueByYear()` | `groupingBy` + `summingDouble` |
-| **Revenue by Region** | `revenueByRegion()` | `groupingBy` + `summingDouble` |
-| **Orders by Status** | `ordersByStatus()` | `groupingBy` + `counting` |
-| **Orders by Deal Size** | `ordersByDealSize()` | `groupingBy` + `counting` |
-| **Monthly Revenue** | `monthlyRevenue()` | `groupingBy` + `summingDouble` |
-
-### 3. Top Performers
-
-| Operation | Method | Stream Operations |
-|-----------|--------|-------------------|
-| **Top Products** | `topProducts(n)` | `groupingBy` → `sorted` → `limit` |
-| **Top Customers** | `topCustomers(n)` | `groupingBy` → `sorted` → `limit` |
-
-### 4. Advanced Analytics
-
-| Operation | Method | Collector Used |
-|-----------|--------|----------------|
-| **High-Value Partition** | `partitionHighValue(threshold)` | `partitioningBy` + `counting` |
-| **Data Quality Checks** | `dataQualityChecks()` | Multiple stream operations |
-
-## 🧪 Testing
-
-### Test Coverage
-
+### Test Suite
 ```
-Total Tests: 81
-Pass Rate: 100%
-Execution Time: ~1.4 seconds
++===========================================================+
+|           PRODUCER-CONSUMER TEST SUITE                    |
+|        Simple Test Runner (No JUnit Required)             |
++===========================================================+
+
+[Test 1] Basic Producer-Consumer with 10 items
+  [OK] All items transferred
+  [OK] Items in correct order
+  [OK] Queue is empty
+  [PASS] Test 1 PASSED
+
+...
+
+============================================================
+TEST SUMMARY
+============================================================
+Total Tests:  18
+[PASS] Passed:    18
+[FAIL] Failed:    0
+============================================================
+*** ALL TESTS PASSED! ***
+
+Testing Objectives Verified:
+  * Thread Synchronization
+  * Concurrent Programming
+  * Blocking Queues
+  * Wait/Notify Mechanism
+============================================================
 ```
 
-### Test Breakdown
+## 🔧 Implementation Details
 
-| Test Class | Tests | Coverage |
-|------------|-------|----------|
-| **DateUtilsTest** | 10 | Date parsing, format handling, edge cases |
-| **SalesRecordTest** | 7 | Record creation, revenue calculation |
-| **CsvSalesReaderTest** | 9 | CSV parsing, stream supplier, resource management |
-| **AnalyticsServiceTest** | 25 | All analytics methods, stream operations, functional programming |
-| **ConsoleReporterTest** | 16 | Output formatting, error handling |
-| **AppTest** | 14 | Integration tests, end-to-end scenarios |
+### Producer.java
+- Reads items from source container sequentially
+- Adds items to shared blocking queue using `offer()`
+- Waits when queue is full using `lock.wait()`
+- Notifies consumer when items are added
+- Signals completion via `AtomicBoolean` flag
 
-### Run Tests
+### Consumer.java
+- Polls items from shared blocking queue
+- Waits when queue is empty using `lock.wait()`
+- Stores consumed items in destination container
+- Notifies producer when space is available
+- Exits when production is complete and queue is empty
 
+### SimpleTestRunner.java
+- 18 comprehensive test cases (no JUnit dependency)
+- Tests single and multiple producer/consumer scenarios
+- Verifies thread safety, data integrity, and performance
+- Includes demo mode for visualization
+
+## ⚡ Performance Notes
+
+- **Small queue (1-5)**: More blocking, slower execution, stress tests wait/notify
+- **Medium queue (10-20)**: Balanced performance, recommended for most cases
+- **Large queue (50+)**: Minimal blocking, faster execution, higher memory usage
+
+Typical execution times (varies by system):
+- Basic tests: 2-4 minutes
+- Multi-threaded tests: 30-60 seconds
+- **Total suite: 3-5 minutes**
+
+## ✅ Success Criteria
+
+All 18 tests verify:
+- ✅ No race conditions
+- ✅ No deadlocks
+- ✅ All items transferred correctly
+- ✅ Order preserved (single producer scenarios)
+- ✅ No duplicate items
+- ✅ Threads terminate cleanly
+- ✅ Queue empty after completion
+
+## 🐛 Troubleshooting
+
+**Tests timeout or run slowly:**
+- Normal behavior for stress tests (500 items)
+- Ensure sufficient system resources
+- Check Java heap size if needed
+
+**ClassNotFoundException:**
 ```bash
-# All tests
-mvn test
-
-# Specific test class
-mvn test -Dtest=AnalyticsServiceTest
-
-# With coverage report
-mvn clean test jacoco:report
+mvn clean compile
 ```
 
-## 🎓 Functional Programming Concepts
+**Build fails:**
+```bash
+# Verify Java version
+java -version  # Should be 11+
 
-This project demonstrates key functional programming principles:
-
-### 1. Lambda Expressions
-
-```java
-// Filtering records with null dates
-stream.filter(r -> r.orderDate() != null)
-
-// Grouping by year
-stream.collect(Collectors.groupingBy(r -> r.orderDate().getYear()))
+# Clean and rebuild
+mvn clean compile
 ```
-
-### 2. Method References
-
-```java
-// Transform to revenue values
-stream.mapToDouble(SalesRecord::revenue)
-
-// Extract quantities
-stream.mapToLong(SalesRecord::quantityOrdered)
-```
-
-### 3. Stream Operations
-
-| Operation | Usage in Project |
-|-----------|------------------|
-| **map** | Transform records to values |
-| **filter** | Remove invalid data (null dates) |
-| **reduce / sum** | Calculate totals |
-| **sorted** | Order top products/customers |
-| **limit** | Restrict to top N results |
-| **collect** | Aggregate into collections |
-
-### 4. Collectors
-
-| Collector | Usage in Project |
-|-----------|------------------|
-| **groupingBy** | Group by year, region, product, customer |
-| **partitioningBy** | Split high/low value orders |
-| **summingDouble** | Sum revenue values |
-| **counting** | Count orders by category |
-| **toList / toMap** | Collect results |
-
-### 5. Supplier Pattern
-
-```java
-// Reusable stream source
-Supplier<Stream<SalesRecord>> supplier = CsvSalesReader.streamSupplier(csvPath);
-
-// Create multiple independent streams
-long count = supplier.get().count();
-double total = supplier.get().mapToDouble(SalesRecord::revenue).sum();
-```
-
-### 6. Immutability
-
-```java
-// Using Java 17 records for immutable data
-public record SalesRecord(
-    String orderNumber,
-    LocalDate orderDate,
-    // ... other fields
-) { }
-```
-
-## 📄 CSV Format
-
-Your CSV file must contain these columns (case-sensitive headers):
-
-### Required Columns
-
-| Column | Type | Description | Example |
-|--------|------|-------------|---------|
-| **ORDERNUMBER** | String | Unique order identifier | "10001" |
-| **ORDERDATE** | Date | Order date (multiple formats supported) | "2/24/2003 0:00" |
-| **CUSTOMERNAME** | String | Customer name | "Acme Corp" |
-| **STATUS** | String | Order status | "Shipped" |
-| **QUANTITYORDERED** | Integer | Quantity of items | 25 |
-| **PRICEEACH** | Double | Price per item | 95.70 |
-| **SALES** | Double | Total sales amount | 2392.50 |
-
-### Optional Columns
-
-| Column | Type | Description |
-|--------|------|-------------|
-| PRODUCTLINE | String | Product category |
-| PRODUCTCODE | String | Product identifier |
-| COUNTRY | String | Customer country |
-| CITY | String | Customer city |
-| TERRITORY | String | Sales territory (NA, EMEA, APAC, Japan) |
-| DEALSIZE | String | Deal classification (Small, Medium, Large) |
-
-### Supported Date Formats
-
-- `M/d/yyyy H:mm` → `2/24/2003 0:00`
-- `yyyy-MM-dd` → `2023-06-15`
-- `M/d/yyyy` → `12/31/2024`
-
-### Example CSV
-
-```csv
-ORDERNUMBER,QUANTITYORDERED,PRICEEACH,SALES,ORDERDATE,STATUS,PRODUCTLINE,CUSTOMERNAME,COUNTRY,TERRITORY,DEALSIZE
-10001,25,95.70,2392.50,2/24/2003 0:00,Shipped,Motorcycles,Acme Corp,USA,NA,Small
-10002,30,100.00,3000.00,3/15/2003 0:00,Shipped,Classic Cars,Tech Inc,France,EMEA,Medium
-```
-
-## 📐 Design Choices and Assumptions
-
-For a comprehensive understanding of the technical decisions, architectural choices, and assumptions made during development, please refer to:
-
-**📄 [DESIGN_CHOICES_AND_ASSUMPTIONS.md](DESIGN_CHOICES_AND_ASSUMPTIONS.md)**
-
-This document covers:
-- **Language Selection**: Why Java was chosen over Python
-- **Architectural Decisions**: Layered architecture, dependency injection, supplier pattern
-- **Data Model Design**: Why Java records were used for immutability
-- **Functional Programming Approach**: Stream operations, lambda expressions, collectors
-- **Technology Stack Rationale**: Apache Commons CSV, JUnit 5, Maven choices
-- **CSV Format Assumptions**: Required vs optional fields, date formats, data quality handling
-- **Analytics Operations Design**: Aggregation, grouping, ranking strategies
-- **Error Handling Strategy**: Fail-fast vs graceful degradation
-- **Testing Strategy**: 81 tests covering all layers
-- **Performance Considerations**: Stream vs loop trade-offs, memory management
-- **Business Assumptions**: Revenue calculations, high-value thresholds, temporal dimensions
-
-## 🤝 Contributing
-
-Contributions are welcome! Here's how you can help:
-
-1. **Fork** the repository
-2. **Create** a feature branch (`git checkout -b feature/AmazingFeature`)
-3. **Commit** your changes (`git commit -m 'Add some AmazingFeature'`)
-4. **Push** to the branch (`git push origin feature/AmazingFeature`)
-5. **Open** a Pull Request
-
-Please ensure:
-- All tests pass (`mvn test`)
-- Code follows existing style
-- New features include tests
-- Documentation is updated
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Educational implementation for assignment submission.
 
-## 👥 Authors
+## 👤 Author
 
-**Sales Analytics Team**
-
-## 🙏 Acknowledgments
-
-- Built as part of a coding challenge to demonstrate Java proficiency
-- Sample dataset provided for educational purposes
-- Inspired by real-world sales analytics requirements
-
-## 📞 Support
-
-For questions or issues:
-- Open an issue on GitHub
-- Contact: [your-email@example.com]
-
----
-
-**Made with ❤️ using Java 17, Streams API, and Functional Programming**
-
-*Last Updated: November 2024*
+Assignment 1 - Producer-Consumer Pattern Implementation
