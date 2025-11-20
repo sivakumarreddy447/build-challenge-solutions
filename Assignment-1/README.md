@@ -21,6 +21,7 @@ A comprehensive sales data analytics application demonstrating modern Java progr
 - [Testing](#testing)
 - [Functional Programming Concepts](#functional-programming-concepts)
 - [CSV Format](#csv-format)
+- [Design Choices and Assumptions](#design-choices-and-assumptions)
 - [Contributing](#contributing)
 
 ## 🎯 Overview
@@ -88,8 +89,11 @@ buildChallenge/
 │   └── test/
 │       ├── java/                     # 81 comprehensive unit tests
 │       └── resources/                # Test data files
+├── docs/
+│   └── images/                       # Screenshots and diagrams
 ├── pom.xml                           # Maven configuration
 ├── README.md                         # This file
+├── DESIGN_CHOICES_AND_ASSUMPTIONS.md # Technical decisions & assumptions
 └── .gitignore                        # Git ignore rules
 ```
 
@@ -450,6 +454,25 @@ ORDERNUMBER,QUANTITYORDERED,PRICEEACH,SALES,ORDERDATE,STATUS,PRODUCTLINE,CUSTOME
 10001,25,95.70,2392.50,2/24/2003 0:00,Shipped,Motorcycles,Acme Corp,USA,NA,Small
 10002,30,100.00,3000.00,3/15/2003 0:00,Shipped,Classic Cars,Tech Inc,France,EMEA,Medium
 ```
+
+## 📐 Design Choices and Assumptions
+
+For a comprehensive understanding of the technical decisions, architectural choices, and assumptions made during development, please refer to:
+
+**📄 [DESIGN_CHOICES_AND_ASSUMPTIONS.md](DESIGN_CHOICES_AND_ASSUMPTIONS.md)**
+
+This document covers:
+- **Language Selection**: Why Java was chosen over Python
+- **Architectural Decisions**: Layered architecture, dependency injection, supplier pattern
+- **Data Model Design**: Why Java records were used for immutability
+- **Functional Programming Approach**: Stream operations, lambda expressions, collectors
+- **Technology Stack Rationale**: Apache Commons CSV, JUnit 5, Maven choices
+- **CSV Format Assumptions**: Required vs optional fields, date formats, data quality handling
+- **Analytics Operations Design**: Aggregation, grouping, ranking strategies
+- **Error Handling Strategy**: Fail-fast vs graceful degradation
+- **Testing Strategy**: 81 tests covering all layers
+- **Performance Considerations**: Stream vs loop trade-offs, memory management
+- **Business Assumptions**: Revenue calculations, high-value thresholds, temporal dimensions
 
 ## 🤝 Contributing
 
