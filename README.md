@@ -107,7 +107,8 @@ java -cp target/classes:target/test-classes com.assignment.producerconsumer.Simp
 ```
 
 ### <a name="a1-sample-output"></a>📈 Sample Output
-
+![Output](Output/Assignment-1-Image-1.png)
+![Output](Output/Assignment-1-Image-1.png)
 #### Demo Mode
 ```
 ============================================================
